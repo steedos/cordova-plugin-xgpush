@@ -3,8 +3,8 @@ var exec = require('cordova/exec'),
   channel = require('cordova/channel'),
   utils = require('cordova/utils');
 
-channel.createSticky('onCordovaXGPushReady');
-channel.waitForInitialization('onCordovaXGPushReady');
+// channel.createSticky('onCordovaXGPushReady');
+// channel.waitForInitialization('onCordovaXGPushReady');
 
 function XGPush() {
 
@@ -68,24 +68,24 @@ function XGPush() {
         exec(successCallback, errorCallback, "XGPush", "setAccessInfo", [accessId, accessKey]);
     };
 
-    channel.onCordovaReady.subscribe(function () {
-        exec(
-            function (event) {
-                console.log("[XGPush] Event = " + event.type + ": ", event);
-                if (event && (event.type in me.channels)) {
-                    me.channels[event.type].fire(event);
-                }
-            },
-            null, "XGPush", "addListener", []
-            );
+    // channel.onCordovaReady.subscribe(function () {
+    //     exec(
+    //         function (event) {
+    //             console.log("[XGPush] Event = " + event.type + ": ", event);
+    //             if (event && (event.type in me.channels)) {
+    //                 me.channels[event.type].fire(event);
+    //             }
+    //         },
+    //         null, "XGPush", "addListener", []
+    //         );
 
-        me.registerPush(null, function (info) {
-            console.log("[XGPush] RegisterPush: ", info);
-            channel.onCordovaXGPushReady.fire();
-        }, function (e) {
-            utils.alert("[ERROR] RegisterPush: ", e);
-        });
-    });
+    //     me.registerPush(null, function (info) {
+    //         console.log("[XGPush] RegisterPush: ", info);
+    //         channel.onCordovaXGPushReady.fire();
+    //     }, function (e) {
+    //         utils.alert("[ERROR] RegisterPush: ", e);
+    //     });
+    // });
 }
 
 module.exports = new XGPush();
