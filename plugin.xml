@@ -23,21 +23,25 @@
       </feature>
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest">
+      <!-- 【必须】 信鸽SDK所需权限   -->
       <uses-permission android:name="android.permission.INTERNET" />
       <uses-permission android:name="android.permission.READ_PHONE_STATE" />
       <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.WAKE_LOCK" />
+      <uses-permission android:name="android.permission.VIBRATE" />
+      <!-- 【常用】 信鸽SDK所需权限 -->
+      <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
       <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      <!-- 【可选】 信鸽SDK所需权限 -->
       <uses-permission android:name="android.permission.RESTART_PACKAGES" />
       <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-      <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-      <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-      <uses-permission android:name="android.permission.WAKE_LOCK" />
       <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
       <uses-permission android:name="android.permission.GET_TASKS" />
       <uses-permission android:name="android.permission.READ_LOGS" />
-      <uses-permission android:name="android.permission.VIBRATE" />
+      <uses-permission android:name="android.permission.BLUETOOTH" />
+      <uses-permission android:name="android.permission.BATTERY_STATS" />
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
@@ -79,16 +83,20 @@
           </intent-filter>
       </receiver>
 
+      <activity
+        android:name="com.tencent.android.tpush.XGPushActivity"
+        android:exported="false" >
+        <intent-filter>
+           <!-- 若使用AndroidStudio，请设置android:name="android.intent.action"-->
+            <action android:name="android.intent.action" />
+        </intent-filter>
+      </activity>
+
       <!-- 【必须】 信鸽service -->
       <service
           android:name="com.tencent.android.tpush.service.XGPushServiceV3"
           android:exported="true"
           android:persistent="true"
-          android:process=":xg_service_v3" />
-
-      <!-- 【必须】 增强xg_service存活率  -->
-      <service
-          android:name="com.tencent.android.tpush.service.XGDaemonService"
           android:process=":xg_service_v3" />
 
       <!-- 【必须】 通知service，其中android:name部分要改为当前包名 -->
@@ -100,6 +108,11 @@
               <action android:name="$PACKAGE_NAME.PUSH_ACTION" />
           </intent-filter>
       </service>
+
+      <!-- 【必须】 增强xg_service存活率  -->
+      <service
+          android:name="com.tencent.android.tpush.service.XGDaemonService"
+          android:process=":xg_service_v3" />
 
       <!-- 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：$PACKAGE_NAME-->
       <provider 
@@ -120,7 +133,8 @@
           android:authorities="$PACKAGE_NAME.TENCENT.MID.V3"
           android:exported="true" >
       </provider>
-            <meta-data android:name="XG_V2_ACCESS_ID" android:value="$ACCESS_ID"></meta-data>
+      
+      <meta-data android:name="XG_V2_ACCESS_ID" android:value="$ACCESS_ID"></meta-data>
       <meta-data android:name="XG_V2_ACCESS_KEY" android:value="$ACCESS_KEY"></meta-data>
     </config-file>
     <source-file src="src/android/XGPushPlugin.java" target-dir="src/net/sunlu/xgpush" />
