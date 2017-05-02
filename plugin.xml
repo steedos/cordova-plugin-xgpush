@@ -153,7 +153,7 @@
     <source-file src="sdk/android/Other-Platform-SO/armeabi-v7a/libxguardian.so" target-dir="libs/armeabi-v7a" />
   </platform>
   <!-- ios -->
-  <platform name="ios">
+  <!-- <platform name="ios">
     <config-file target="config.xml" parent="/*">
       <feature name="XGPush">
         <param name="ios-package" value="CDVXGPushPlugin" />
@@ -168,21 +168,18 @@
         <string>$ACCESS_KEY</string>
       </dict>
     </config-file>
-    <!-- Tencent XGPush SDK -->
     <header-file src="sdk/ios/XGPush.h" />
     <header-file src="sdk/ios/XGSetting.h" />
     <source-file src="sdk/ios/libXG-SDK.a" framework="true" />
-    <!-- Cordova Plugin -->
     <header-file src="src/ios/AppDelegate+CDVXGPush.h" />
     <source-file src="src/ios/AppDelegate+CDVXGPush.m" />
     <header-file src="src/ios/CDVXGPushPlugin.h" />
     <source-file src="src/ios/CDVXGPushPlugin.m" />
-    <!-- Dependencies -->
     <framework src="libz.dylib" />
     <framework src="libsqlite3.dylib" />
     <framework src="CFNetwork.framework" />
     <framework src="SystemConfiguration.framework" />
     <framework src="CoreTelephony.framework" />
     <framework src="Security.framework" />
-  </platform>
+  </platform> -->
 </plugin>
