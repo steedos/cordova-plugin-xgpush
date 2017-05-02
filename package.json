@@ -5,8 +5,7 @@
    "cordova": {
     "id": "cordova-plugin-xgpush",
     "platforms": [     
-      "android",     
-      "ios"
+      "android"
     ]
   },  
    "keywords": [
